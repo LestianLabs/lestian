@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* disable highlighting text */
 :not(input):not(textarea),
 :not(input):not(textarea)::after,
 :not(input):not(textarea)::before {

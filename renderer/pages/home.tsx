@@ -4,9 +4,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <React.Fragment>
-      <div className="mt-1 w-full flex-wrap flex justify-center min-h-99">
+      <div className="flex items-center justify-center min-h-screen bg-slate-900">
         <Link href="/node">
-          <a className="btn-blue">Sign In</a>
+          <a className="btn-blue text-white">Sign In</a>
         </Link>
       </div>
     </React.Fragment>
