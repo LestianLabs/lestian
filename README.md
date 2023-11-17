@@ -1,38 +1,13 @@
-<p align="center"><img src="https://i.imgur.com/a9QWW0v.png"></p>
+![](https://github.com/LestianLabs/lestian/assets/19412160/1708f04d-6260-4830-b970-4ec5774a0971)
 
-## Usage
+# Lestian Labs
 
-### Create an App
+Incentivized Light Nodes
 
-```
-# with npx
-$ npx create-nextron-app my-app --example with-tailwindcss
+## Installation
 
-# with yarn
-$ yarn create nextron-app my-app --example with-tailwindcss
+```bash
+npm i
 
-# with pnpm
-$ pnpm dlx create-nextron-app my-app --example with-tailwindcss
-```
-
-### Install Dependencies
-
-```
-$ cd my-app
-
-# using yarn or npm
-$ yarn (or `npm install`)
-
-# using pnpm
-$ pnpm install --shamefully-hoist
-```
-
-### Use it
-
-```
-# development mode
-$ yarn dev (or `npm run dev` or `pnpm run dev`)
-
-# production build
-$ yarn build (or `npm run build` or `pnpm run build`)
+npm run start
 ```
