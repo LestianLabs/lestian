@@ -11,6 +11,7 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "app-root-dir": "^1.0.2",
     "electron-dl": "^3.5.1",
     "electron-is-dev": "^2.0.0",

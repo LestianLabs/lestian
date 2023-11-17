@@ -4,6 +4,7 @@ main/binaries/**
 
 app
 .vscode
+.DS_Store
 
 # Logs
 logs
