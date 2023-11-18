@@ -1,5 +1,5 @@
 import path from "path";
-import { app, ipcMain } from "electron";
+import { app, ipcMain, clipboard } from "electron";
 import serve from "electron-serve";
 import { createWindow } from "./helpers";
 import LightNode from "./helpers/LightNode";
@@ -36,9 +36,18 @@ app.on("window-all-closed", () => {
   app.quit();
 });
 
+// handle IPC for clipboard
+ipcMain.on("clipboard", (_, text) => {
+  clipboard.writeText(text);
+});
+
 // handle IPC for light nodes
-ipcMain.on("celestia", async (event) => {
+ipcMain.on("start-node", async (event, chain) => {
   // key value from binaries.json
-  const lightNode = new LightNode("celestia", event);
+  const lightNode = new LightNode(chain, event);
   await lightNode.start();
+});
+
+ipcMain.on("stop-node", async () => {
+  console.log("BACGROUND.ts::SOTPPPING NODE");
 });

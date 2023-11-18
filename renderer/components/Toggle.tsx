@@ -10,7 +10,10 @@ export default function Toggle(props: Props) {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    console.log(enabled, chain);
+    console.log("toggle.tsx", chain, enabled);
+    enabled
+      ? window.ipc.send("start-node", chain)
+      : window.ipc.send("stop-node", chain);
   }, [enabled]);
 
   const classNames = (...classes) => {

@@ -2,22 +2,7 @@ import React, { useState } from "react";
 import Toggle from "./Toggle";
 import Image from "next/image";
 
-export default function Card() {
-  const [nodeRunning, setNodeRunning] = useState(false);
-
-  const handleNode = () => {
-    // toggle node in main/background.ts
-    window.ipc.send("celestia", !nodeRunning);
-
-    // display stdout from node in console
-    window.ipc.on("message", (stdout) => {
-      console.log(stdout);
-    });
-
-    // update button text
-    setNodeRunning(!nodeRunning);
-  };
-
+export default function Nodes() {
   return (
     <React.Fragment>
       <div aria-label="content" className="mt-9 grid gap-2.5">
