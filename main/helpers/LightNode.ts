@@ -58,7 +58,7 @@ export default class LightNode {
       await this.unzip(zip);
       await this.move(zip);
       await this.deleteTemp();
-      const init = await this.runInit();
+      const init = await this.installDaemon();
       await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
       await init.kill();
       await this.runDaemon();
@@ -130,8 +130,8 @@ export default class LightNode {
     this.event.reply("stdout", message);
   };
 
-  runInit = (): ChildProcessWithoutNullStreams => {
-    this.reply(`Running init ${this.chain}...`);
+  installDaemon = (): ChildProcessWithoutNullStreams => {
+    this.reply(`Installing daemon ${this.chain}...`);
     const init = spawn(
       join(this.downloadPath, this.binaries[this.chain].file),
       this.binaries[this.chain].init
@@ -142,7 +142,7 @@ export default class LightNode {
   };
 
   runDaemon = () => {
-    this.reply(`Starting daemon ${this.chain}...`);
+    this.reply(`Running daemon ${this.chain}...`);
     this.process = spawn(
       join(this.downloadPath, this.binaries[this.chain].file),
       this.binaries[this.chain].deamon
