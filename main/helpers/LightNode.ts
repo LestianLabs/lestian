@@ -1,5 +1,5 @@
 import fs from "fs";
-import util from "util";
+import { ChildProcessWithoutNullStreams, spawn } from "child_process";
 import { join, dirname } from "path";
 import os from "os";
 import { BrowserWindow } from "electron";
@@ -31,7 +31,8 @@ export default class LightNode {
         amd64:
           "https://github.com/Vistara-Labs/vimana/releases/download/celestia-v0.12.0/linux_amd64.zip",
       },
-      cmds: ["light init --node.store", "light start --node.store"],
+      init: ["light", "init"], // command to init chain
+      deamon: ["light", "start"], // command to start chain
     },
   };
 
@@ -49,7 +50,7 @@ export default class LightNode {
 
   start = async (): Promise<void> => {
     try {
-      if (await this.exists()) return this.runCmds();
+      if (await this.exists()) return this.runDaemon();
       await this.deleteTemp();
       await this.mkDir(this.downloadPath);
       await this.mkDir(this.tempPath);
@@ -57,7 +58,10 @@ export default class LightNode {
       await this.unzip(zip);
       await this.move(zip);
       await this.deleteTemp();
-      await this.runCmds();
+      const init = await this.runInit();
+      await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+      await init.kill();
+      await this.runDaemon();
     } catch (error) {
       await this.deleteTemp();
       return this.reply(error);
@@ -74,14 +78,7 @@ export default class LightNode {
     }
   };
 
-  stop = async () => {
-    this.reply(`Stopping ${this.chain} node...`);
-    this.process.kill();
-    this.deleteTemp();
-  };
-
-  // delete temp folder
-  deleteTemp = async () => {
+  deleteTemp = async (): Promise<void> => {
     try {
       this.reply(`Deleting temp folder...`);
       await fs.rmSync(this.tempPath, { recursive: true });
@@ -90,27 +87,24 @@ export default class LightNode {
     }
   };
 
-  // check if binary exists
   exists = async (): Promise<boolean> => {
+    this.reply(`Checking if binary exists...`);
     const hasBinary = await fs.existsSync(
       join(this.downloadPath, this.binaries[this.chain].file)
     );
-    this.reply(`Binaries downloaded: ${hasBinary}`);
     return hasBinary;
   };
 
-  // move binary to this.downloadPath
   move = async (zip: Electron.DownloadItem): Promise<void> => {
-    this.reply(`Moving...`);
+    this.reply(`Moving binary to ${this.downloadPath}`);
     return await fs.renameSync(
       join(zip.savePath.replace(".zip", ""), this.binaries[this.chain].file),
       join(this.downloadPath, this.binaries[this.chain].file)
     );
   };
 
-  // unzip binary to this.tempPath
   unzip = async (zip: Electron.DownloadItem): Promise<void> => {
-    this.reply(`Unzipping...`);
+    this.reply(`unzipping binary to ${this.tempPath}`);
     return await extract(zip.savePath, {
       dir: this.tempPath,
       onEntry: (entry) => {
@@ -119,9 +113,8 @@ export default class LightNode {
     });
   };
 
-  // download binary from url
   downloadZip = async (url: string): Promise<Electron.DownloadItem> => {
-    this.reply(`Downloading...`);
+    this.reply(`download binary from ${url}`);
     return await download(BrowserWindow.getFocusedWindow(), url, {
       directory: this.tempPath,
       onProgress: (progress) => {
@@ -137,29 +130,31 @@ export default class LightNode {
     this.event.reply("stdout", message);
   };
 
-  // run commands
-  runCmds = async () => {
-    const exec = util.promisify(require("child_process").exec);
-    for (const cmd of this.binaries[this.chain].cmds) {
-      this.reply(
-        `runCmd: ${join(
-          this.downloadPath,
-          this.binaries[this.chain].file
-        )} ${cmd}`
-      );
-      this.process = await exec(
-        `${join(this.downloadPath, this.binaries[this.chain].file)} ${cmd} ${
-          this.downloadPath
-        }`,
-        (error, stdout, stderr) => {
-          this.reply(`${this.chain} error: ${error}`);
-          this.reply(`${this.chain} stderr: ${stderr}`);
-          this.reply(`${this.chain} stdout: ${stdout}`);
-        }
-      );
-      // wait 1 second
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
+  runInit = (): ChildProcessWithoutNullStreams => {
+    this.reply(`Running init ${this.chain}...`);
+    const init = spawn(
+      join(this.downloadPath, this.binaries[this.chain].file),
+      this.binaries[this.chain].init
+    );
+    init.stdout.on("data", (data) => this.reply(`runInit stdout: ${data}`));
+    init.stderr.on("data", (error) => this.reply(`runInit stderr: ${error}`));
+    return init;
+  };
+
+  runDaemon = () => {
+    this.reply(`Starting daemon ${this.chain}...`);
+    this.process = spawn(
+      join(this.downloadPath, this.binaries[this.chain].file),
+      this.binaries[this.chain].deamon
+    );
+    this.process.stdout.on("data", (data) => this.reply(`stdout: ${data}`));
+    this.process.stderr.on("data", (error) => this.reply(`stderr: ${error}`));
+  };
+
+  stop = () => {
+    this.reply(`Stopping ${this.chain}...`);
+    this.process.kill();
+    this.deleteTemp();
   };
 
   // returns the platform name: 'darwin', 'linux' or 'win32'

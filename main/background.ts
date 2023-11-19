@@ -4,6 +4,12 @@ import serve from "electron-serve";
 import { createWindow } from "./helpers";
 import LightNode from "./helpers/LightNode";
 
+interface LightNodes {
+  [key: string]: LightNode;
+}
+
+const lightNodes: LightNodes = {};
+
 const isProd = process.env.NODE_ENV === "production";
 
 if (isProd) {
@@ -43,11 +49,10 @@ ipcMain.on("clipboard", (_, text) => {
 
 // handle IPC for light nodes
 ipcMain.on("start-node", async (event, chain) => {
-  // key value from binaries.json
-  const lightNode = new LightNode(chain, event);
-  await lightNode.start();
+  lightNodes[chain] = new LightNode(chain, event);
+  lightNodes[chain].start();
 });
 
-ipcMain.on("stop-node", async () => {
-  console.log("BACGROUND.ts::SOTPPPING NODE");
+ipcMain.on("stop-node", async (event, chain) => {
+  lightNodes[chain]?.stop();
 });

@@ -10,11 +10,17 @@ export default function Toggle(props: Props) {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    console.log("toggle.tsx", chain, enabled);
     enabled
       ? window.ipc.send("start-node", chain)
       : window.ipc.send("stop-node", chain);
   }, [enabled]);
+
+  useEffect(() => {
+    // get logs from LightNode.ts::reply
+    window.ipc.on("stdout", (stdout) => {
+      console.log(stdout.toString());
+    });
+  }, []);
 
   const classNames = (...classes) => {
     return classes.filter(Boolean).join(" ");

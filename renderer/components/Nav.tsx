@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Nodes from "../components/Nodes";
 import Wallet from "../components/Wallet";
-import Logs from "../components/Logs";
 
 export default function Nav() {
   const tabs = [
     { name: "Node", component: <Nodes /> },
     { name: "Wallet", component: <Wallet /> },
-    { name: "Logs", component: <Logs /> },
   ];
   const [tab, setTab] = useState(0);
 
