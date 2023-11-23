@@ -3,12 +3,21 @@ import { app, ipcMain, clipboard } from "electron";
 import serve from "electron-serve";
 import { createWindow } from "./helpers";
 import LightNode from "./helpers/LightNode";
+import { Deeplink } from "electron-deeplink";
+import isDev from "electron-is-dev";
 
 interface LightNodes {
   [key: string]: LightNode;
 }
 
 const lightNodes: LightNodes = {};
+
+const deeplink = new Deeplink({
+  app,
+  mainWindow: null,
+  protocol: "lestian",
+  isDev,
+});
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -38,6 +47,14 @@ if (isProd) {
   }
 })();
 
+// handle deep links
+deeplink.on("received", (link: string) => {
+  // lestian://open?token=discordOAuthToken123
+  const token = new URL(link).searchParams.get("token");
+  // save
+});
+
+// handle window close
 app.on("window-all-closed", () => {
   app.quit();
 });
