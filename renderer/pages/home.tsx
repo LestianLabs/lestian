@@ -1,14 +1,12 @@
 import React from "react";
-import Link from "next/link";
+import Nav from "../components/Nav";
 
-export default function Home() {
+export default function Nodes() {
   return (
-    <React.Fragment>
-      <div className="flex items-center justify-center min-h-screen bg-slate-900">
-        <Link href="/node">
-          <a className="btn-blue text-white">Sign In</a>
-        </Link>
+    <div className="flex items-center justify-center min-h-screen bg-slate-900">
+      <div className="p-8 rounded-2xl bg-slate-800 max-w-sm w-full min-h-[300px] my-10">
+        <Nav />
       </div>
-    </React.Fragment>
+    </div>
   );
 }

@@ -1,27 +1,11 @@
 import path from "path";
-import { app, ipcMain, clipboard } from "electron";
+import { app } from "electron";
 import serve from "electron-serve";
 import { createWindow } from "./helpers";
-import LightNode from "./helpers/LightNode";
-import { Deeplink } from "electron-deeplink";
-import isDev from "electron-is-dev";
+import "./helpers/ipc";
+import "./helpers/deeplink";
 
-interface LightNodes {
-  [key: string]: LightNode;
-}
-
-const lightNodes: LightNodes = {};
-
-const deeplink = new Deeplink({
-  app,
-  mainWindow: null,
-  protocol: "lestian",
-  isDev,
-});
-
-const isProd = process.env.NODE_ENV === "production";
-
-if (isProd) {
+if (process.env.NODE_ENV === "production") {
   serve({ directory: "app" });
 } else {
   app.setPath("userData", `${app.getPath("userData")} (development)`);
@@ -38,7 +22,7 @@ if (isProd) {
     },
   });
 
-  if (isProd) {
+  if (process.env.NODE_ENV === "production") {
     await mainWindow.loadURL("app://./home");
   } else {
     const port = process.argv[2];
@@ -47,29 +31,7 @@ if (isProd) {
   }
 })();
 
-// handle deep links
-deeplink.on("received", (link: string) => {
-  // lestian://open?token=discordOAuthToken123
-  const token = new URL(link).searchParams.get("token");
-  // save
-});
-
 // handle window close
 app.on("window-all-closed", () => {
   app.quit();
-});
-
-// handle IPC for clipboard
-ipcMain.on("clipboard", (_, text) => {
-  clipboard.writeText(text);
-});
-
-// handle IPC for light nodes
-ipcMain.on("start-node", async (event, chain) => {
-  lightNodes[chain] = new LightNode(chain, event);
-  lightNodes[chain].start();
-});
-
-ipcMain.on("stop-node", async (event, chain) => {
-  lightNodes[chain]?.stop();
 });
