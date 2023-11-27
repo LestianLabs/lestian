@@ -11,10 +11,12 @@ if (process.env.NODE_ENV === "production") {
   app.setPath("userData", `${app.getPath("userData")} (development)`);
 }
 
+export let mainWindow;
+
 (async () => {
   await app.whenReady();
 
-  const mainWindow = createWindow("main", {
+  mainWindow = createWindow("main", {
     width: 1000,
     height: 600,
     webPreferences: {

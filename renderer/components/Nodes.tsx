@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Toggle from "./Toggle";
 import Image from "next/image";
 
@@ -6,7 +6,7 @@ export default function Nodes() {
   return (
     <React.Fragment>
       <div aria-label="content" className="mt-9 grid gap-2.5">
-        <div className="flex items-center space-x-4 p-3.5 rounded-full bg-slate-600">
+        <div className="flex items-center space-x-4 p-3.5 rounded-full bg-slate-700">
           <span className="flex items-center justify-center w-10 h-10 shrink-0 rounded-full text-gray-900">
             <Image src="/images/celestia.png" width={48} height={48} />
           </span>

@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Nodes from "../components/Nodes";
-import Wallet from "../components/Wallet";
+import Reward from "./Reward";
 
 export default function Nav() {
   const tabs = [
     { name: "Node", component: <Nodes /> },
-    { name: "Wallet", component: <Wallet /> },
+    { name: "Reward", component: <Reward /> },
   ];
   const [tab, setTab] = useState(0);
+
+  useEffect(() => {
+    // from deeplink.ts
+    window.ipc.on("deep-link", (discordCode) => {
+      setTab(1);
+    });
+  });
 
   return (
     <React.Fragment>
