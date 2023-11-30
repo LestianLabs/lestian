@@ -29,7 +29,7 @@ export default function Discord(props: Props) {
         </div>
         <button
           type="button"
-          className="rounded-full bg-red-400 px-1 py-1 hover:bg-red-500"
+          className="rounded-full bg-red-400 px-1 py-1 hover:bg-emerald-400"
           onClick={() => handleClick()}
         >
           <svg

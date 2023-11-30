@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Authenticate from "./Authenticate";
 import Discord from "./Discord";
 import Address from "./Address";
+import SignOut from "./SignOut";
+import Refresh from "./Refresh";
 
 export default function Reward() {
   const [authenticate, setAuthenticate] = useState(false);
@@ -52,13 +54,17 @@ export default function Reward() {
       <div aria-label="content" className="mt-9 grid gap-2.5">
         <div className="flex items-center space-x-4 p-3.5 rounded-xl bg-slate-700">
           <div className="text-sm font-small text-gray-400">
-            To earn rewards, please complete below:
+            To earn rewards, please click below:
           </div>
         </div>
       </div>
       <Authenticate authenticate={authenticate} />
       <Discord discord={discord} />
       <Address address={address} />
+      <div className="mt-10 flex flex-row justify-between">
+        <SignOut />
+        <Refresh />
+      </div>
     </React.Fragment>
   );
 }

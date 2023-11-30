@@ -2,8 +2,6 @@ import path from "path";
 import { app } from "electron";
 import serve from "electron-serve";
 import { createWindow } from "./helpers";
-import "./helpers/ipc";
-import "./helpers/deeplink";
 
 if (process.env.NODE_ENV === "production") {
   serve({ directory: "app" });

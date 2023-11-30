@@ -37,6 +37,11 @@ ipcMain.on("set-store", async (event, keyVal) => {
   event.reply("reply-store", keyVal);
 });
 
+ipcMain.on("delete-store", async (event, key) => {
+  store.delete(key);
+  event.reply("reply-store", [key, undefined]);
+})
+
 ipcMain.handle("get-store", (_, key) => {
   return store.get(key);
 });

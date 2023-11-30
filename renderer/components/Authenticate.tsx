@@ -8,7 +8,7 @@ export default function Authenticate(props: Props) {
   const handleClick = () => {
     window.ipc.send(
       "open-external",
-      "https://discord.com/oauth2/authorize?client_id=1176730548618657792&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fredirect&response_type=code&scope=identify"
+      "https://discord.com/api/oauth2/authorize?client_id=1176730548618657792&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth&scope=identify"
     );
   };
 
@@ -52,7 +52,7 @@ export default function Authenticate(props: Props) {
         ) : (
           <button
             type="button"
-            className="rounded-full bg-red-400 px-1 py-1 hover:bg-red-500"
+            className="rounded-full bg-red-400 px-1 py-1 hover:bg-emerald-400"
             onClick={() => handleClick()}
           >
             <svg
