@@ -8,7 +8,7 @@ export default function Authenticate(props: Props) {
   const handleClick = () => {
     window.ipc.send(
       "open-external",
-      "https://discord.com/api/oauth2/authorize?client_id=1176730548618657792&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth&scope=identify"
+      "https://discord.com/api/oauth2/authorize?client_id=1176730548618657792&response_type=code&redirect_uri=https%3A%2F%2Fauth.lestian.com%2Fauth&scope=identify"
     );
   };
 

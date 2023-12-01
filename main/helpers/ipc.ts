@@ -50,7 +50,7 @@ ipcMain.handle("get-store", (_, key) => {
 ipcMain.on("refresh-auth", async (event, key) => {
   const auth = store.get("authenticate");
   const { data } = await axios.get(
-    `http://localhost:3000/joinedDiscord?code=${auth}`
+    `https://auth.lestian.com/joinedDiscord?code=${auth}`
   );
   if (data.user) {
     store.set("discord", true);
