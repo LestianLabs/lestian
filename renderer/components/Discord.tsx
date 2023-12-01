@@ -27,21 +27,39 @@ export default function Discord(props: Props) {
         <div className="flex flex-col flex-1">
           <div className="text-sm font-medium text-gray-300">Join Discord</div>
         </div>
-        <button
-          type="button"
-          className="rounded-full bg-red-400 px-1 py-1 hover:bg-emerald-400"
-          onClick={() => handleClick()}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="white"
-            viewBox="0 0 16 16"
+        {discord ? (
+          <button
+            type="button"
+            className="rounded-full bg-emerald-400 px-1 py-1"
+            disabled
           >
-            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="white"
+              viewBox="0 0 16 16"
+            >
+              <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+            </svg>
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="rounded-full bg-red-400 px-1 py-1 hover:bg-emerald-400"
+            onClick={() => handleClick()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="white"
+              viewBox="0 0 16 16"
+            >
+              <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );

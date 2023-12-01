@@ -125,7 +125,6 @@ export default class LightNode {
 
   // reply to electron console
   reply = (message: string) => {
-    console.log("\nLighNode::reply", message);
     if (!this.event) return;
     this.event.reply("stdout", message);
   };

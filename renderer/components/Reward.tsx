@@ -58,9 +58,9 @@ export default function Reward() {
           </div>
         </div>
       </div>
+      <Address address={address} />
       <Authenticate authenticate={authenticate} />
       <Discord discord={discord} />
-      <Address address={address} />
       <div className="mt-10 flex flex-row justify-between">
         <SignOut />
         <Refresh />

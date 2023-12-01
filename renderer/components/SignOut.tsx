@@ -4,8 +4,8 @@ export default function SignOut() {
   const handleClick = async () => {
     const confirmed = confirm("Are you sure you want sign out?");
     if (!confirmed) return;
-    console.log("Sign out");
     window.ipc.send("delete-store", "authenticate");
+    window.ipc.send("delete-store", "discord");
     window.ipc.send("delete-store", "address");
   };
 

@@ -3,9 +3,9 @@ import React, { useState } from "react";
 export default function Refresh() {
   const [animated, setAnimated] = useState(false);
 
-  const handleClick = async () => {
+  const handleClick = () => {
     animate();
-    console.log("refresh");
+    window.ipc.send("refresh-auth", "authenticate");
   };
 
   const animate = () => {

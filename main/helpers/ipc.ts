@@ -1,5 +1,6 @@
 import { ipcMain, clipboard, shell } from "electron";
 import Store from "electron-store";
+import axios from "axios";
 import LightNode from "./LightNode";
 
 interface LightNodes {
@@ -40,8 +41,19 @@ ipcMain.on("set-store", async (event, keyVal) => {
 ipcMain.on("delete-store", async (event, key) => {
   store.delete(key);
   event.reply("reply-store", [key, undefined]);
-})
+});
 
 ipcMain.handle("get-store", (_, key) => {
   return store.get(key);
+});
+
+ipcMain.on("refresh-auth", async (event, key) => {
+  const auth = store.get("authenticate");
+  const { data } = await axios.get(
+    `http://localhost:3000/joinedDiscord?code=${auth}`
+  );
+  if (data.user) {
+    store.set("discord", true);
+    event.reply("reply-store", ["discord", true]);
+  }
 });
