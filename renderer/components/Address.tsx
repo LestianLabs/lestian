@@ -13,7 +13,7 @@ export default function Address(props: Props) {
     // check if value is address
     if (!isAddress(value)) return alert("Invalid Address");
     // save address, will trigger ipc.ts then Reward.ts to rerender
-    window.ipc.send("set-store", ["address", value]);
+    window.ipc.send("save-address", value);
   };
 
   return (
