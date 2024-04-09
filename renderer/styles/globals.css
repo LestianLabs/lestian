@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Fira Mono";
+  src: url("./FiraMono-Regular.ttf") format("truetype");
+}
+
+html {
+  font-family: "Fira Mono", sans-serif;
+}
+
+.titlebar {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+/* disable highlighting text */
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+  -webkit-user-select: none;
+  user-select: none;
+}
+input,
+button,
+textarea,
+:focus {
+  outline: none;
+}

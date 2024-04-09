@@ -1,0 +1,12 @@
+appId: com.lestian
+productName: Lestian 
+copyright: Copyright © Lestian 
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null

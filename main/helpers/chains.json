@@ -1,0 +1,16 @@
+{
+  "celestia": {
+    "file": "celestia",
+    "version": "0.13.2",
+    "darwin": {
+      "arm64": "https://github.com/celestiaorg/celestia-node/releases/download/v0.13.2/celestia-node_Darwin_arm64.tar.gz",
+      "amd64": "https://github.com/celestiaorg/celestia-node/releases/download/v0.13.2/celestia-node_Darwin_x86_64.tar.gz"
+    },
+    "linux": {
+      "arm64": "https://github.com/celestiaorg/celestia-node/releases/download/v0.13.2/celestia-node_Linux_arm64.tar.gz",
+      "amd64": "https://github.com/celestiaorg/celestia-node/releases/download/v0.13.2/celestia-node_Linux_x86_64.tar.gz"
+    },
+    "init": ["light", "init"],
+    "deamon": ["light", "start"]
+  }
+}
