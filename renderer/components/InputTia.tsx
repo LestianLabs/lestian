@@ -63,7 +63,7 @@ export default function InputTia() {
           <button
             type="button"
             className="rounded-full bg-emerald-400 px-1 py-1"
-            disabled={true}
+            disabled={false}
             onClick={() => deleteStore()}
           >
             <svg
