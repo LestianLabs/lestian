@@ -12,5 +12,15 @@
     },
     "init": ["light", "init"],
     "deamon": ["light", "start"]
+  },
+  "avail": {
+    "file": "avail",
+    "version": "1.10.2",
+    "darwin": {
+      "arm64": "https://github.com/LestianLabs/binaries/releases/download/v1.0.0/avail-light-apple-arm64.tar.gz",
+      "amd64": "https://github.com/LestianLabs/binaries/releases/download/v1.0.0/avail-light-apple-x86_64.tar.gz"
+    },
+    "init": [],
+    "deamon": ["--network", "turing"]
   }
 }
