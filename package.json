@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "lestian",
+  "name": "Lestian",
   "description": "Incentivized Light Node",
   "version": "1.0.0",
   "author": "Lestian Labs <lestianlabs@gmail.com>",
@@ -17,13 +17,12 @@
     "axios": "^1.6.2",
     "decompress": "^4.2.1",
     "decompress-targz": "^4.1.1",
-    "electron-deeplink": "^1.0.10",
     "electron-dl": "^3.5.1",
     "electron-is-dev": "^2.0.0",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.1.0",
     "electron-traywindow-positioner": "^1.2.0",
-    "viem": "^1.19.9"
+    "viem": "^2.17.4"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
@@ -31,7 +30,7 @@
     "autoprefixer": "^10.4.16",
     "electron": "^26.2.2",
     "electron-builder": "^24.9.1",
-    "next": "^12.3.4",
+    "next": "^14.2.5",
     "nextron": "^8.12.0",
     "postcss": "^8.4.30",
     "react": "^18.2.0",
@@ -48,7 +47,10 @@
       "entitlementsInherit": "main/entitlements.mac.plist",
       "gatekeeperAssess": false,
       "category": "public.app-category.developer-tools",
-      "type": "distribution"
+      "type": "distribution",
+      "notarize": {
+        "teamId": "2R6AK4HUHA"
+      }
     },
     "linux": {
       "icon": "resources/icon.png",

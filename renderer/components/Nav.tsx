@@ -17,7 +17,7 @@ export default function Nav() {
       <div>
         <div aria-label="header" className="flex items-center space-x-3">
           <button onClick={toggleDev}>
-            <Image src="/images/logo.svg" width={32} height={32} />
+            <Image src="/images/logo.svg" width={32} height={32} alt={""} />
           </button>
           {tabs.map((_, index) => (
             <div

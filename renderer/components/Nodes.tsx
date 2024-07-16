@@ -9,11 +9,11 @@ export default function Nodes() {
       <div aria-label="content" className="mt-9 grid gap-2.5">
         <div className="flex items-center space-x-4 p-3.5 rounded-xl bg-slate-700">
           <span className="flex items-center justify-center w-10 h-10 shrink-0 rounded-full text-gray-900">
-            <Image src="/images/avail.png" width={48} height={48} />
+            <Image src="/images/avail.png" width={48} height={48} alt={""} />
           </span>
           <div className="flex flex-col flex-1">
             <h3 className="text-sm font-medium text-gray-100">
-              Avail
+              Avail (Testnet)
             </h3>
             <div className="divide-x divide-gray-200 mt-auto">
               <span className="inline-block px-3 text-xs leading-none text-gray-400 font-normal first:pl-0">
@@ -25,12 +25,10 @@ export default function Nodes() {
         </div>
         <div className="flex items-center space-x-4 p-3.5 rounded-xl bg-slate-700">
           <span className="flex items-center justify-center w-10 h-10 shrink-0 rounded-full text-gray-900">
-            <Image src="/images/celestia.png" width={48} height={48} />
+            <Image src="/images/celestia.png" width={48} height={48} alt={""} />
           </span>
           <div className="flex flex-col flex-1">
-            <h3 className="text-sm font-medium text-gray-100">
-              Celestia
-            </h3>
+            <h3 className="text-sm font-medium text-gray-100">Celestia</h3>
             <div className="divide-x divide-gray-200 mt-auto">
               <span className="inline-block px-3 text-xs leading-none text-gray-400 font-normal first:pl-0">
                 v{chains.celestia.version}

@@ -41,9 +41,11 @@ export default class LightNode {
       const zip = await this.downloadZip(this.url);
       await this.unzip(zip);
       await this.move(zip);
-      const init = await this.installDaemon();
-      await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
-      await init.kill();
+      if (chains[this.chain].init) {
+        const init = await this.installDaemon();
+        await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+        await init.kill();
+      }
       await this.runDaemon();
       await this.deleteTemp();
     } catch (error) {
@@ -111,7 +113,11 @@ export default class LightNode {
   };
 
   installDaemon = (): ChildProcessWithoutNullStreams => {
-    this.reply(`Installing daemon ${this.chain}...`);
+    this.reply(
+      `Installing daemon ${this.chain} args ${JSON.stringify(
+        chains[this.chain].init
+      )}...`
+    );
     const init = spawn(
       join(this.downloadPath, chains[this.chain].file),
       chains[this.chain].init
@@ -122,10 +128,14 @@ export default class LightNode {
   };
 
   runDaemon = () => {
-    this.reply(`Running daemon ${this.chain}...`);
+    this.reply(
+      `Running daemon ${this.chain} args ${JSON.stringify(
+        chains[this.chain].daemon
+      )}...`
+    );
     this.process = spawn(
       join(this.downloadPath, chains[this.chain].file),
-      chains[this.chain].deamon
+      chains[this.chain].daemon
     );
     this.process.stdout.on("data", (data) => this.reply(`stdout: ${data}`));
     this.process.stderr.on("data", (error) => {

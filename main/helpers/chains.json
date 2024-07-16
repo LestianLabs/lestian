@@ -11,7 +11,7 @@
       "amd64": "https://github.com/celestiaorg/celestia-node/releases/download/v0.13.2/celestia-node_Linux_x86_64.tar.gz"
     },
     "init": ["light", "init"],
-    "deamon": ["light", "start"]
+    "daemon": ["light", "start"]
   },
   "avail": {
     "file": "avail",
@@ -20,7 +20,6 @@
       "arm64": "https://github.com/LestianLabs/binaries/releases/download/v1.0.0/avail-light-apple-arm64.tar.gz",
       "amd64": "https://github.com/LestianLabs/binaries/releases/download/v1.0.0/avail-light-apple-x86_64.tar.gz"
     },
-    "init": [],
-    "deamon": ["--network", "turing"]
+    "daemon": ["--network=turing"]
   }
 }

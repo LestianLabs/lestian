@@ -2,6 +2,10 @@
 main/binaries/**
 !main/binaries/README.md
 
+# node
+identity.toml
+avail_path
+
 app
 .vscode
 .DS_Store
